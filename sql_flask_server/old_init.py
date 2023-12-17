@@ -1,4 +1,10 @@
+# follows the official Flask tutorial: https://flask.palletsprojects.com/en/3.0.x/tutorial/
+# and Miguel Grinberg's tutorial: https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
+
+# this module is named '__init__', which executes and defines what symbols are exposed outside a package
+
 import os
+import time
 
 from flask import Flask
 
@@ -33,5 +39,9 @@ def create_app(test_config=None):
   @app.route('/hello')
   def hello():
     return 'Hello, World!'
+  
+  @app.route('/time')
+  def get_current_time():
+     return { 'time': time.time() }
 
   return app

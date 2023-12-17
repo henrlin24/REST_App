@@ -1,3 +1,4 @@
+# for basic React-Flask setup
 from flask import Flask
 
 app = Flask(__name__)
