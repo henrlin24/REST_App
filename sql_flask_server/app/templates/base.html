@@ -1,0 +1,20 @@
+<!-- base template, can be extended to create other pages while retaining common elements-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- returns title if title is passed in successfully -->
+    {% if title %}
+    <title>{{ title }} - Cool SQL app</title>
+    <!-- otherwise, default page title is provided -->
+    {% else %}
+    <title>Welcome to this cool SQL app!</title>
+    {% endif %}
+  </head>
+  <body>
+    <!-- makeshift homepage bar -->
+    <div>Cool SQL app: <a href="/index">Home</a></div>
+    <hr>
+    <!-- filler block dubbed 'content', to be specified by 'child' templates -->
+    {% block content %} {% endblock %}
+  </body>
+</html>
