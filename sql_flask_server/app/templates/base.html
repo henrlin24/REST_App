@@ -12,8 +12,25 @@
   </head>
   <body>
     <!-- makeshift homepage bar -->
-    <div>Cool SQL app: <a href="/index">Home</a></div>
+    <div>Cool SQL app: 
+      <a href="{{ url_for('index') }}">Home</a> 
+      <a href="{{ url_for('login') }}">Login</a>
+    </div>
     <hr>
+
+    <!-- fetch and render flash messages from Flask app -->
+    <!-- get_flashed_messages() is function from Flask, presumed implictly passed in even without explicit defintition with render_template() calls -->
+    <!-- of note, flashed messages are automatically cleared when get_flashed_messages() is called -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% endwith %}
+
     <!-- filler block dubbed 'content', to be specified by 'child' templates -->
     {% block content %} {% endblock %}
   </body>

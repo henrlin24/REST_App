@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Sign In</h1>
+  <!-- action specifies URL to use when submitting form data. Blank defaults to current URL -->
+  <!-- novalidate leaves validation up to backend -->
+  <form action="" method="post" novalidate>
+    <!-- generates hidden field and token, used to protect against CSRF attacks -->
+    <!-- to use, just include hidden tag as below, and have 'SECRET_KEY' defined within the Flask app -->
+    {{ form.hidden_tag() }}
+
+    <!-- username section-->
+    <p>
+      {{ form.username.label }}
+      <br>
+      {{ form.username(size=32) }}
+      <br>
+      <!-- any fields with validators automatically have validation-related errors added under form.<field-name>.errors -->
+      <!-- form.<field-name>.errors is a list, to accomodate multiple validators -->
+      {% for error in form.username.errors %}
+      <span style="color: red;">
+        {{ error }}</span>
+      {% endfor %}
+    </p>
+    <!-- password section-->
+    <p>
+      {{ form.password.label }}
+      <br>
+      {{ form.password(size=32) }}
+      <br>
+      {% for error in form.password.errors %}
+      <span style="color: red;">
+        {{ error }}</span>
+      {% endfor %}
+    </p>
+    <!-- rememeber_me section-->
+    <p>{{ form.remember_me()}} {{ form.remember_me.label }}</p>
+    <!-- submit section-->
+    <p>{{ form.submit() }}</p>
+  </form>
+{% endblock %}
