@@ -1,0 +1,13 @@
+flask db init
+  initializes migration directory
+flask db migrate
+  generate automatic migration scripts as needed to accomodate changes to database structure
+
+DATABASE UPGRADE AND DOWNGRADE
+flask db upgrade
+  generate or modify database based on migrations scripts generated
+  NOTE: when working with database servers (e.g. MySQL or PostgreSQL), need to create the database within the database server FIRST before running upgrade
+flask db downgrade
+  can be used to roll back schema changes from recent migration scripts, if they are retained
+
+Overall, the workflow of the above 2 commands allows for changes to schema to be easily tested on dev environment, and easily applied to the production server
