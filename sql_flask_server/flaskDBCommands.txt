@@ -7,7 +7,13 @@ DATABASE UPGRADE AND DOWNGRADE
 flask db upgrade
   generate or modify database based on migrations scripts generated
   NOTE: when working with database servers (e.g. MySQL or PostgreSQL), need to create the database within the database server FIRST before running upgrade
+  default target is 'head', which is a shortcut to the most recent migration
 flask db downgrade
   can be used to roll back schema changes from recent migration scripts, if they are retained
+  default downgrades one revision
+flask db downgrade base
+  downgrades all migrations, until database is left at its initial state, with no tables
 
 Overall, the workflow of the above 2 commands allows for changes to schema to be easily tested on dev environment, and easily applied to the production server
+
+Can downgrade base, then upgrade to effectively reset database contents as data is not retained during migration

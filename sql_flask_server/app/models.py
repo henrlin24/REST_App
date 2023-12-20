@@ -20,7 +20,7 @@ class User(db.Model):
 
   # NOT actual database field. High-level view of relationship between user and post, and allows app to access connected user and posts entries
   # so.relationship is a model class that references the other side of the relationship, thus associating the corresponding attributes of the relationship
-  # WriteOnlyMapped defines posts as a colleciton type with Post objects inside
+  # WriteOnlyMapped defines posts as a collection type with Post objects inside, and adds a 'select()' method to class
   posts: so.WriteOnlyMapped['Post'] = so.relationship(back_populates='author')
 
   # tells Python how to print out objects of the class

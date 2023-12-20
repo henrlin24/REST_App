@@ -1,0 +1,15 @@
+query = SQLAlchemy.select(x) provides a select query selecting all entries within the provided table
+db.session.scalars(x).all()
+  db.session.scalars(x) executes the database query
+  .all() converts the returned results iterator into a plain list
+  can also skip use of .all(), using the iterator in a for loop to iterate through all results
+
+db.session.get(TABLE, id) can retrieve a specific entry by id
+
+app.app_context().push() allows FlaskSQLAlchemy to access the Flask app instance, and thus access its config file and see the database URL
+
+db.session.add() adds a new entry
+db.session.commit() writes new entries accumulated
+db.session.rollback() aborts the session and any changes made, and can handle errors durign a session.
+
+SQLAlchemy query guide: https://docs.sqlalchemy.org/en/20/orm/queryguide/select.html#selecting-orm-entities-and-attributes
