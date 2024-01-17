@@ -1,3 +1,6 @@
+.\env\Scripts\activate
+flask run
+
 flask db init
   initializes migration directory
 flask db migrate
