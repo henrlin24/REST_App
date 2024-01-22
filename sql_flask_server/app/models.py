@@ -3,10 +3,12 @@ from datetime import datetime, timezone
 from typing import Optional
 import sqlalchemy as sa       # provides general purpose database functions & classes, like types and query build helpers
 import sqlalchemy.orm as so   # provides support for using models
-from app import db
+from app import db, login
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin   # imported to user model class to provide safe and generic implementations of is_authentic, is_active, is_anonymous, and get_id()
 
 # User class inherits from db.Model, base class for all models in SQLAlchemy
-class User(db.Model):
+class User(UserMixin, db.Model):
   # tables generated automatically use snake_case for table names
   # can specify specific table name with field '__tablename__'
 
@@ -16,7 +18,7 @@ class User(db.Model):
   id: so.Mapped[int] = so.mapped_column(primary_key=True)                               # marks field as primary_key
   username: so.Mapped[str] = so.mapped_column(sa.String(64), index=True, unique=True)   # sets string max length, set column to be indexed for faster search, and if values should be unique
   email: so.Mapped[str] = so.mapped_column(sa.String(120), index=True, unique=True)
-  password: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))                 # optional key allows column to be optional/nullable
+  password_hash: so.Mapped[Optional[str]] = so.mapped_column(sa.String(256))                 # optional key allows column to be optional/nullable
 
   # NOT actual database field. High-level view of relationship between user and post, and allows app to access connected user and posts entries
   # so.relationship is a model class that references the other side of the relationship, thus associating the corresponding attributes of the relationship
@@ -27,6 +29,16 @@ class User(db.Model):
   # good for debug use
   def __repr__(self):
     return '<User - {}, email - {}>'.format(self.username, self.email)
+  
+  def set_password(self, password):
+    self.password_hash = generate_password_hash(password)
+  
+  def check_password(self, password):
+    return check_password_hash(self.password_hash, password)
+
+@login.user_loader
+def load_user(id):
+  return db.session.get(User, int(id))
   
 class Post(db.Model):
   id: so.Mapped[int] = so.mapped_column(primary_key=True)

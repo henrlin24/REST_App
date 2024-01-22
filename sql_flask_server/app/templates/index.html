@@ -2,7 +2,7 @@
 
 <!-- overwrites default block dubbed 'content' within base template -->
 {% block content %}
-  <h1>Hello, {{ user.username }}</h1>
+  <h1>Hello, {{ current_user.username }}</h1>
   <!-- for loop, can iterate though array of variable size -->
   {% if posts %}
     {% for post in posts %}
