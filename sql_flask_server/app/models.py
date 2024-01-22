@@ -26,7 +26,7 @@ class User(db.Model):
   # tells Python how to print out objects of the class
   # good for debug use
   def __repr__(self):
-    return '<User - {}>'.format(self.username)
+    return '<User - {}, email - {}>'.format(self.username, self.email)
   
 class Post(db.Model):
   id: so.Mapped[int] = so.mapped_column(primary_key=True)
@@ -40,4 +40,4 @@ class Post(db.Model):
   author: so.Mapped[User] = so.relationship(back_populates='posts')
   
   def __repr__(self):
-    return '<Post - {} @time {}'.format(self.body, self.timestamp)
+    return '<Post - {} @time {}>'.format(self.body, self.timestamp)
