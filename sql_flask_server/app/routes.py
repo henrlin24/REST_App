@@ -3,7 +3,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required # current_user can be referenced at any time during request handling to obtain user object representing request client
 import sqlalchemy as sa
 from app import app, db
-from app.forms import LoginForm
+from app.forms import LoginForm, RegistrationForm
 from app.models import User
 from urllib.parse import urlsplit
 
@@ -67,8 +67,24 @@ def login():
     return redirect(next_page)
   return render_template('login.html', title='Sign In', form=form)
 
-# logout function
+# logout view function
 @app.route('/logout')
 def logout():
   logout_user()
   return redirect(url_for('index'))
+
+# register view function
+@app.route('/register')
+def register():
+  if current_user.is_authenticated:
+    return redirect(url_for('index'))
+  
+  form = RegistrationForm()
+  if form.validate_on_submit:
+    user = User(username=form.username.data, email=form.username.data)
+    user.set_password(form.password.data)
+    db.session.add(user)
+    db.session.commit()
+    flash('Congratulations {}, you are now a registered user! Have fun!'.format(form.username.data))
+    return redirect(url_for('login'))
+  return render_template('register.html', title='Register', form=form)
