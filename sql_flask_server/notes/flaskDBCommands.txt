@@ -25,3 +25,12 @@ Can downgrade base, then upgrade to effectively reset database contents as data 
 flask shell
   starts Python interpreter, and allows for incorporation of shell context function
   these can be used to import symbols, such as that within sqltestapp.py
+
+
+Current Users:
+Username: Henry
+Pass: neko
+
+Username: notHenry
+Pass: cat
+* can reset/remove users by downgrading, then upgrading database
