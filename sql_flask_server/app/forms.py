@@ -17,7 +17,7 @@ class RegistrationForm(FlaskForm):
   password = PasswordField('Password', validators=[DataRequired()])
   # reconfirms password, checking it matches with initial password entry
   password2 = PasswordField(
-    'Re-confirm password', validators=[DataRequired(), EqualTo(password)])
+    'Re-confirm password', validators=[DataRequired(), EqualTo('password')])
   submit = SubmitField('Register')
 
   # validators of the pattern validate_<field_name>, WTForms recognizes them as custom validators and runs alongside stock validators
